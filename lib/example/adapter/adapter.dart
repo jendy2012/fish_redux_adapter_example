@@ -1,35 +1,34 @@
-import 'package:adapter_demo/example/component/a_component/component.dart';
-import 'package:adapter_demo/example/component/a_component/state.dart';
-import 'package:adapter_demo/example/component/b_component/component.dart';
-import 'package:adapter_demo/example/component/b_component/state.dart';
 import 'package:fish_redux/fish_redux.dart';
-
+import '../component/super_item/component.dart';
+import '../component/super_item/state.dart';
 import '../state.dart';
 
-class ExampleAdapter extends DynamicFlowAdapter<ExampleState> {
-  ExampleAdapter()
+class SuperAdapter extends DynamicFlowAdapter<SuperState> {
+  SuperAdapter()
       : super(
           pool: <String, Component<Object>>{
-            "AComponent":AComponent(),
-            "BComponent":BComponent(),
+            "SuperItemComponent": SuperItemComponent()
           },
-          connector: _ExampleConnector(),
-          );
+          connector: _SuperConnector(),
+        );
 }
 
-class _ExampleConnector extends ConnOp<ExampleState, List<ItemBean>> {
+class _SuperConnector extends ConnOp<SuperState, List<ItemBean>> {
   @override
-  List<ItemBean> get(ExampleState state) {
-    if(state.select=="A"){
-      return List<ItemBean>.generate(50, (index)=>ItemBean("AComponent", AState()..index=index));
-    }else{
-      return List<ItemBean>.generate(50, (index)=>ItemBean("BComponent", BState()..index=index));
-    }
+  List<ItemBean> get(SuperState state) {
+    return List.generate(
+        state.titles.length,
+        (index) => ItemBean(
+            "SuperItemComponent",
+            SuperItemState(
+                title: state.titles[index], select: state.selects[index])));
   }
 
   @override
-  void set(ExampleState state, List<ItemBean> items) {
-
+  void set(SuperState state, List<ItemBean> items) {
+    List<SuperItemState> subStates =
+        items.map((item) => item.data).cast<SuperItemState>().toList();
+    state.titles = subStates.map((sub) => sub.title).toList();
+    state.selects = subStates.map((sub) => sub.select).toList();
   }
-
 }

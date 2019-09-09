@@ -1,21 +1,24 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
+import 'component/super_item/state.dart';
+import 'package:meta/meta.dart';
+
+class SuperState implements Cloneable<SuperState> {
+
+  List<String> titles;
+  List<bool> selects;
 
 
-class ExampleState implements Cloneable<ExampleState> {
-
-  String select;
-
-  TabController tabController;
+  SuperState({this.titles, this.selects});
 
   @override
-  ExampleState clone() {
-    return ExampleState()
-      ..tabController=tabController
-      ..select=select;
+  SuperState clone() {
+    return SuperState(titles: titles,selects: selects);
   }
 }
 
-ExampleState initState(ExampleState initState) {
-  return initState ?? ExampleState();
+SuperState initState(SuperState initState) {
+  return initState ?? SuperState(
+    titles: ["titles1","titles2","titles3"],
+    selects: [false,false,false]
+  );
 }
