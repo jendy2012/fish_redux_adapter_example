@@ -1,24 +1,22 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:meta/meta.dart';
 
+class SuperItemState implements Cloneable<SuperItemState> {
+  AnimationController controller;
+  Animation<Color> animationColor;
 
+  UniqueKey uniqueKey = UniqueKey();
 
-class SuperItemState implements Cloneable<SuperItemState>{
-
-  String title;
-  bool select;
-
-
-  SuperItemState({this.title, this.select});
+  SuperItemState();
 
   @override
   SuperItemState clone() {
-    return SuperItemState(title:title,select: select);
-  }
-
-  @override
-  String toString() {
-    return 'SuperItemState{title: $title, select: $select}';
+    return SuperItemState()
+      ..controller=controller
+      ..animationColor=animationColor
+      ..uniqueKey = uniqueKey;
   }
 }

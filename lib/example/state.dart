@@ -4,21 +4,20 @@ import 'package:meta/meta.dart';
 
 class SuperState implements Cloneable<SuperState> {
 
-  List<String> titles;
-  List<bool> selects;
+
+  List<SuperItemState> items;
 
 
-  SuperState({this.titles, this.selects});
+  SuperState({this.items});
 
   @override
   SuperState clone() {
-    return SuperState(titles: titles,selects: selects);
+    return SuperState(items: items);
   }
 }
 
 SuperState initState(SuperState initState) {
   return initState ?? SuperState(
-    titles: ["titles1","titles2","titles3"],
-    selects: [false,false,false]
+      items: [SuperItemState(),SuperItemState()]
   );
 }
