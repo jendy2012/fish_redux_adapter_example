@@ -18,6 +18,6 @@ void _onRefresh(Action action, Context<SuperState> ctx) async {
   await Future.delayed(Duration(seconds: 1));
   //模拟刷新
   ctx.dispatch(SuperActionCreator.modify((clone){
-    clone.items=[SuperItemState(),SuperItemState()];
+    clone.items=[SuperItemState()];
   }));
 }

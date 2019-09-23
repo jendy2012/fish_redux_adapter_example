@@ -18,6 +18,6 @@ class SuperState implements Cloneable<SuperState> {
 
 SuperState initState(SuperState initState) {
   return initState ?? SuperState(
-      items: [SuperItemState(),SuperItemState()]
+      items: [SuperItemState()]
   );
 }
